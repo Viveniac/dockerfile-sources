@@ -12,7 +12,7 @@ The **Dockerfile Sources Tool** is a production-grade utility written in Go as p
 This tool is built with maintainability, fault tolerance, scalability, and testability in mind. It is containerized using Docker and is designed to run as a Kubernetes Job for cloud-native environments.
 
 ## Project Structure
-dockerfile-sources/ ├── main.go # Main source code (Go) ├── go.mod # Go module file ├── go.sum # Go module checksum file (may be empty if only standard library is used) ├── Dockerfile # Dockerfile to build the container image ├── job.yaml # Kubernetes Job manifest for deployment ├── README.md # Project documentation (this file) 
+dockerfile-sources/ ├── main.go # Main source code (Go) ├── go.mod # Go module file ├── go.sum # Go module checksum file (may be empty if only standard library is used) ├── Dockerfile # Dockerfile to build the container image ├── configmap.yaml # Kubernetes configmap ├── job.yaml # Kubernetes Job manifest for deployment ├── README.md # Project documentation (this file) 
 
 
 ## Features
