@@ -97,21 +97,36 @@ Additional Enhancements
 
 Production Readiness Considerations
 
+      Multi-Architecture Build (Cross-Compilation)
+
+      To ensure the image runs on various hardware platforms, we use Docker Buildx for cross-compilation. This process            builds multi-architecture images and pushes a unified manifest to Docker Hub, so the correct image variant is               automatically pulled on each node.
+      Commands for Multi-Architecture Build
+
+    1.) Create and Use a Builder with Docker-Container Driver:
+    ```bash
+    docker buildx create --name multi-builder --driver docker-container --use
+    docker buildx inspect multi-builder --bootstrap
+    ```
+    2.) Build and Push the Image for Multiple Platforms:
+    ````bash
+    docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t blahblah:latest --push .
+    ````
+
+
     Use of Go Standard Library:
-    All imported packages are part of the Go standard library, ensuring stability, maintenance, and security through FOSS. This minimizes external dependency risks and simplifies audits.
+    All imported packages are part of the Go standard library, ensuring stability, maintenance, and security through FOSS.      This minimizes external dependency risks and simplifies audits.
 
     Separation of Configuration:
-    The use of a ConfigMap (dockerfile-sources-config) externalizes environment-specific settings (like REPOSITORY_LIST_URL), allowing configuration changes without rebuilding the image. This adheres to the Twelve-Factor App principles and improves scalability.
+    The use of a ConfigMap (dockerfile-sources-config) externalizes environment-specific settings (like                   REPOSITORY_LIST_URL), allowing configuration changes without rebuilding the image. This adheres to the Twelve-Factor App principles and improves scalability.
 
     Resource Management:
     Kubernetes manifests include resource requests and limits to ensure that the application runs efficiently without overloading cluster resources.
 
     Security & Auditability:
-    Running containers with non-root users and defining pod-level security contexts enhances the security and auditability of the deployment.
-    Because the code is open source, you or your organization can audit it if needed. This is often a requirement in production systems, especially when deployed on-premises.
+    Running containers with non-root users and defining pod-level security contexts enhances the security and auditability of the deployment. Because the code is open source, you or your organization can audit it if needed—this is often a requirement in production systems, especially when deployed on-premises.
 
     No Additional External Dependencies:
-    Since all packages (like bufio, encoding/json, os/exec, etc.) are part of the standard library, you don't need to worry about external dependencies that might introduce vulnerabilities or require separate maintenance.
+    Since all packages (e.g., bufio, encoding/json, os/exec) are part of the standard library, you don't need to worry about external dependencies that might introduce vulnerabilities or require separate maintenance.
 
 
 
