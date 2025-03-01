@@ -50,7 +50,7 @@ dockerfile-sources/ ├── main.go # Main source code (Go) ├── go.mod #
 ```bash
     docker build -t viveniac/2025:latest .
 ```
-- **Run the Container Locally**
+- **Run the Container Locally not recommended, target machine might change, I have pushed a considered image, if intended to run container pull the image from docker hub repo**
 ```bash
     docker run --rm -it -e REPOSITORY_LIST_URL=https://your-source-file-url viveniac/2025:latest
     #This will run the container and print the JSON output.
