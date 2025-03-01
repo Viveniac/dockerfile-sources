@@ -128,6 +128,8 @@ Production Readiness Considerations
     No Additional External Dependencies:
     Since all packages (e.g., bufio, encoding/json, os/exec) are part of the standard library, you don't need to worry about external dependencies that might introduce vulnerabilities or require separate maintenance.
 
+    P.S: I did monitor execution speed, once the pod is up, in 6-7 seconds if you check logs can see the output.
+
 
 
 
