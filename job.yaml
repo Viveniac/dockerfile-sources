@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dockerfile-sources-job
+  labels:
+    app: dockerfile-sources
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: dockerfile-sources
+    spec:
+      securityContext:
+        fsGroup: 2000
+      containers:
+      - name: dockerfile-sources
+        image: viveniac/2025:latest
+        env:
+        - name: REPOSITORY_LIST_URL
+          valueFrom:
+            configMapKeyRef:
+              name: dockerfile-sources-config
+              key: repositoryListURL
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 3000
+      restartPolicy: Never
